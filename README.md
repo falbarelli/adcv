@@ -1,8 +1,8 @@
 # Adaptive CV (adcv) LaTeX class and template
 
-Adaptive CV allows to compile different variants of a CV (e.g., a résumé and an extended CV) from a single LaTeX source. It is particularly suitable for academic CVs but flexible enough to be used with any CVs.
+This is a modified version of Alessandro Rossini's [Adaptive CV](https://github.com/alessandrorossini/adcv) template.
 
-![Alessandro Rossini's CV](https://alessandrorossini.org/wp-content/cv_alessandro_rossini_en.png)
+Adaptive CV allows to compile different variants of a CV (e.g., a résumé and an extended CV) from a single LaTeX source. It is particularly suitable for academic CVs but flexible enough to be used with any CVs.
 
 ## Requirements
 
