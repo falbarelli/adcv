@@ -280,6 +280,8 @@
 \definecolor{black}{HTML}{000000}
 % \definecolor{paynegray}{HTML}{272F38}
 \definecolor{coralpink}{HTML}{FF706C}
+\definecolor{aquamarine}{HTML}{66CDAA}
+\definecolor{ocra}{HTML}{CC7722}
 
 \ifprint
   \colorlet{regulartext}{black}
@@ -289,10 +291,12 @@
   \colorlet{linktext}{lightgray}
 \else
   \colorlet{regulartext}{gray}
-  \colorlet{headerfill}{paynegray}
+  % \colorlet{headerfill}{paynegray}
+  \colorlet{headerfill}{ocra}
   \colorlet{headertext}{white}
   \colorlet{lighttext}{lightgray}
-  \colorlet{linktext}{coralpink}
+  \colorlet{linktext}{aquamarine}
+  % \colorlet{linktext}{coralpink}
 \fi
 
 % Hyperref
@@ -341,15 +345,18 @@
 \newcommand*{\lighttext}{\addfontfeature{Color=lighttext}}
 \newcommand*{\linktext}{\addfontfeature{Color=linktext}}
 
-\def\@sectioncolor#1#2#3{{\addfontfeature{Color=linktext} #1#2#3}}
+% \def\@sectioncolor#1#2#3{{\addfontfeature{Color=linktext} #1#2#3}}
+\def\@sectioncolor#1#2#3{{\addfontfeature{Color=headerfill} #1#2#3}}
 \def\HyColor@@@@UseColor#1\@nil{\addfontfeatures{Color=linktext}}
 
 \renewcommand{\section}[1]{\vspace{.5\baselineskip}{\Large\bfseries\@sectioncolor #1}}
-\renewcommand{\subsection}[2]{\large\bfseries #2}
+% \renewcommand{\subsection}[2]{\large\bfseries #2}
 
 % Header
 
 \RequirePackage{tikz}
+
+\graphicspath{{icons/}}
 
 \newcommand*{\adcvname}[3]{\def\adcv@firstname{#1}\def\adcv@lastname{#2}\def\adcv@degree{#3}}
 \newcommand*{\adcvtitle}[1]{\def\adcv@title{#1}}
@@ -358,7 +365,6 @@
 \newcommand*{\adcvemail}[3]{\def\adcv@emaillocal{#1}\def\adcv@emaildomainsecond{#2}\def\adcv@emaildomaintop{#3}}
 \newcommand*{\adcvwebsite}[2]{\def\adcv@websiteurl{#1}\def\adcv@websitetext{#2}}
 
-\graphicspath{{icons/}}
 
 \ifprint
   \newcommand*{\aticon}{\includegraphics[height=0.75em]{at_print.png}}
@@ -376,8 +382,9 @@
 
 \ifonline
   \def\adcv@address{\placeicon~\adcv@locality,~\adcv@country}
-  \def\adcv@email{\envelopeicon~{\linktext\adcv@emaillocal\aticon\adcv@emaildomainsecond\doticon\adcv@emaildomaintop}}
-  \def\adcv@telephone{}
+  % \def\adcv@email{\envelopeicon~{\linktext\adcv@emaillocal\aticon\adcv@emaildomainsecond\doticon\adcv@emaildomaintop}}
+  \def\adcv@email{\envelopeicon~\href{mailto:\adcv@emaillocal @\adcv@emaildomainsecond.\adcv@emaildomaintop}{\adcv@emaillocal @\adcv@emaildomainsecond.\adcv@emaildomaintop}}
+  \def\adcv@telephone{\phoneicon~\adcv@phone}
 \else
   \def\adcv@address{\placeicon~\adcv@street,~\adcv@postalcode~\adcv@locality,~\adcv@country}
   \def\adcv@email{\envelopeicon~\href{mailto:\adcv@emaillocal @\adcv@emaildomainsecond.\adcv@emaildomaintop}{\adcv@emaillocal @\adcv@emaildomainsecond.\adcv@emaildomaintop}}
@@ -391,10 +398,11 @@
       {\Huge\thinheader\adcv@firstname~\regularheader\adcv@lastname\thinheader,~\adcv@degree}%
     };%
     \node [text=headertext, anchor=north] at (name.south) {%
-      \Large\thinheader\adcv@title%
+      \Large\thinheader\adcv@title%   
     };%
+    \node [inner sep=0pt] at (0.8,0.32) { \includegraphics[scale=0.75]{portrait.png} };
   \end{tikzpicture}%
-
+  
   \vspace{\baselineskip}%
 
   \ifdefined\adcv@websiteurl%
@@ -411,7 +419,7 @@
     \ifonline%
       \adcv@email~\adcv@website%
 
-      \adcv@address%
+      \adcv@address~~~\adcv@telephone%
     \else%
       \adcv@email~\adcv@website%
 
@@ -434,7 +442,7 @@
 \AtBeginDocument{%
   \pagestyle{fancy}%
   \fancyhead{}%
-  \fancyfoot[C]{\footnotesize\light\adcv@firstname~\adcv@lastname\ifextended\adcv@cvofkey\else\adcv@resumeofkey\fi, \adcv@date, \adcv@telephone~\adcv@email}%
+  \fancyfoot[C]{\footnotesize\light\adcv@firstname~\adcv@lastname\ifextended\adcv@cvofkey\else\adcv@resumeofkey\fi, \adcv@date, \adcv@email}%
   \fancyfoot[R]{\raggedleft\footnotesize\light\adcv@page}%
   \renewcommand{\headrulewidth}{0em}%
   \setlength\footskip{\baselineskip}%
@@ -506,46 +514,102 @@
 \newcommand*{\adcvCTwo}{\adcvCEF{C2}{\adcv@fluentkey}}
 
 % Publications
-
-\RequirePackage[backend=biber,block=par,defernumbers=false,maxnames=99,sorting=none,style=numeric]{biblatex}
+%defernumbers=false
+%style=numeric
+\RequirePackage[backend=biber,block=par,defernumbers=true,maxnames=99,style=phys,eprint=true,sorting=ndymdt,biblabel=brackets]{biblatex}
 \RequirePackage{csquotes}
 \urlstyle{same}
+
+%Reverse cronological order see https://tex.stackexchange.com/questions/46868/biblatex-sorting-by-date
+\DeclareSortingTemplate{ndymdt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort[direction=descending]{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{99}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{99}
+  }
+  \sort{
+    \field{author}
+    \field{editor}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort[direction=descending]{
+    \field[padside=left,padwidth=4,padchar=0]{volume}
+    \literal{9999}
+  }
+}
+
+% Reverse counting, see https://tex.stackexchange.com/questions/21401/biblatex-reverse-numbering-i-e-count-down
+% Count total number of entries in each refsection
+% \AtDataInput{%
+%   \csnumgdef{entrycount:\therefsection}{%
+%     \csuse{entrycount:\therefsection}+1}}
+% % Print the labelnumber as the total number of entries in the
+% % current refsection, minus the actual labelnumber, plus one
+% \DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}    
+% \newrobustcmd*{\mkbibdesc}[1]{%
+%   \number\numexpr\csuse{entrycount:\therefsection}+1-#1\relax}
 
 \DeclareFieldFormat[article]{title}{#1}
 \DeclareFieldFormat[inproceedings]{title}{#1}
 \DeclareFieldFormat[misc]{title}{#1}
 \DeclareFieldFormat[report]{title}{#1}
+\DeclareFieldFormat[online]{title}{#1}
 
 \renewcommand*{\newunitpunct}{\addcomma\space}
 
 \DeclareBibliographyDriver{article}{%
+  % \usebibmacro{title}
   \printfield{title}%
   \newblock%
   \printnames{author}%
   \newblock%
   {%
     \small\lighttext%
-    \usebibmacro{journal+issuetitle}%
-    \newunit%
-    \printfield{pages}%
-    \newunit%
-    \printlist{publisher}%
-    \setunit{}%
-    \newblock%
-    \iffieldundef{doi}{%
-      \iffieldundef{isbn}{}{%
-        \printfield{isbn}%
-        \newblock%
-      }%
-    }{%
-      \printfield{doi}%
-      \newblock%
-    }%
-    \printfield{url}%
-    \newblock%
+    \printtext[doi/url-link]{%
+      \usebibmacro{journal+issuetitle}%
+      \newunit
+      \usebibmacro{note+pages}%
+      \newunit
+      \setunit{\addspace}%
+      \printfield{year}%
+    }
+    \iffieldundef{eprint}{}
+    {
+    \newunit
+    % \setunit{\addspace}%
+    \usebibmacro{eprint}
+    }
   }%
   \vspace{.5\baselineskip}%
 }
+
+\DeclareBibliographyDriver{online}{%
+  \printfield{title}%
+  \newblock%
+  \printnames{author}%
+  \newblock%
+  {\usebibmacro{eprint}
+    \printtext[doi/url-link]{
+    \printfield{year}}%
+  }
+  \vspace{.5\baselineskip}%
+}
+
 
 \DeclareBibliographyDriver{inproceedings}{%
   \printfield{title}%
@@ -554,24 +618,15 @@
   \newblock%
   {%
     \small\lighttext%
-    \printfield{booktitle}%
+    \printtext[doi/url-link]{
+      \printfield{booktitle}%
     \newunit%
     \printfield{year}%
+    }
     \newunit%
     \printlist{publisher}%
-    \setunit{}%
-    \newblock%
-    \iffieldundef{doi}{%
-      \iffieldundef{isbn}{}{%
-        \printfield{isbn}%
-        \newblock%
-      }%
-    }{%
-      \printfield{doi}%
-      \newblock%
-    }%
-    \printfield{url}%
-    \newblock%
+    % \printfield{url}%
+    % \newblock%
   }%
   \vspace{.5\baselineskip}%
 }
@@ -619,14 +674,19 @@
 % Presentations
 
 \RequirePackage{enumitem}
+\RequirePackage{etaremune}
 
 \newenvironment*{adcvpresentations}{%
   \setlist[enumerate]{labelsep=1em}%
   \renewcommand{\theenumi}{[\arabic{enumi}]}%
   \renewcommand{\labelenumi}{\theenumi}%
-  \begin{enumerate}%
+  \begin{etaremune}%
 }{%
-  \end{enumerate}%
-}
+  \end{etaremune}%
+}  
+%   \begin{enumerate}%
+% }{%
+%   \end{enumerate}%
+% }
 
 \newcommand*{\adcvpresentation}[2]{\item #1\\{\small\lighttext #2}}

@@ -1,0 +1,260 @@
+%!TEX TS-program = xelatex
+\documentclass[a4paper,online,extended]{adcv}
+
+\usepackage{booktabs}
+
+\usepackage[english]{babel}
+
+% \usepackage{etaremune}
+
+\newcommand*{\hib}{Bergen University College}
+\newcommand*{\uib}{University of Bergen}
+\newcommand*{\uniaq}{Universit{\`a} degli Studi dell’Aquila}
+
+%% Some magic to get reverse numbering with the right spacing for labels
+%% https://tex.stackexchange.com/questions/97622/reverse-numbering-in-biblatex-bibliography-with-different-categories
+\makeatletter
+\patchcmd{\blx@printbibliography}
+  {\blx@bibliography\blx@tempa}
+  {\setcounter{bibitemtotal}{0}%
+   \setlength{\labelnumberwidth}{0pt}%
+   \begingroup
+   \def\do##1{\stepcounter{bibitemtotal}}%
+   \dolistloop{\blx@tempa}%
+   \endgroup
+   \blx@setlabwidth{\labelnumberwidth}{%
+     \csuse{abx@ffd@*@labelnumberwidth}{\arabic{bibitemtotal}}}%
+   \blx@bibliography\blx@tempa}{}{}
+\makeatother
+
+\newcounter{bibitemtotal}
+\newrobustcmd*{\mkbibdesc}[1]{%
+  \number\numexpr\value{bibitemtotal}+1-#1\relax}
+\DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}
+\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+
+\defbibenvironment{bibliography}
+  {\list
+     {\printtext[labelnumberwidth]{\printfield{labelnumber}}}
+     {\setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+%%
+
+\addbibresource{bib_francesco_albarelli.bib}
+
+\title{Francesco Albarelli’s CV}
+
+\adcvname{Francesco}{Albarelli}{PhD}
+\adcvtitle{Quantum information theorist}
+\adcvaddress{}{}{Warsaw}{Poland}
+% \adcvwebsite{https://alessandrorossini.org}{alessandrorossini.org}
+\adcvemail{francesco.albarelli}{gmail}{com}
+\adcvphone{(+39) 349 766 1591}
+\adcvdate{\today}
+
+\begin{document}
+
+I am a postdoctoral researcher in quantum information theory, with a particular interest in multiparameter quantum estimation theory and metrology, continuously monitored quantum systems and nonclassicality of continuous variable quantum systems.
+
+\section{Experience}
+
+\begin{adcvtabletwo}
+  \adcvrowtwo{\textbf{Research assistant}, Faculty of Physics, University of Warsaw, Poland }{2019--Present}
+  \adcvrowmulti{
+  Postdoc position (Polish: \textit{adiunkt badawczy}) in the theoretical quantum metrology group led by \href{https://www.fuw.edu.pl/~demko/}{Rafał~Demkowicz-Dobrzański}. 
+  Main themes of research: noisy multiparameter quantum metrology and spatially correlated noise in quantum interferometry.}
+  \adcvrowskip
+  \adcvrowtwo{\textbf{Research fellow}, Dept. of Physics, University of Warwick, Coventry, United Kingdom}{2018--2019}
+  \adcvrowmulti{
+  Postdoc position in the \href{https://warwick.ac.uk/fac/sci/physics/research/theory/research/qinfo/}{Quantum Information Science group} led by \href{https://warwick.ac.uk/fac/sci/physics/staff/academic/animeshdatta/}{Animesh Datta}, funded by the Networked Quantum Information Technologies Hub (\href{https://nqit.ox.ac.uk}{NQIT}).
+  Main themes of research: multiparameter quantum estimation theory and metrology.}
+  \adcvrowskip
+  \adcvrowtwo{\textbf{Visiting reseach student}, Dept. of Physics, University College London, UK}{2018}
+  \adcvrowmulti{Conducted research in collaboration with \href{https://www.ucl.ac.uk/physics-astronomy/people/dr-alessio-serafini}{Alessio Serafini} on quantum control for continuous variable systems.
+  }
+  \adcvrowskip
+   \adcvrowtwo{\textbf{Traineeship Erasmus+}, Centre for Theoretical AMO Physics, Queen's University Belfast, UK}{2017}
+  \adcvrowmulti{
+  Visited the \href{https://web.am.qub.ac.uk/wp/qo/}{Quantum Technology group} to collaborate with \href{https://pure.qub.ac.uk/en/persons/alessandro-ferraro}{Alessandro Ferraro} on resource theories of non-classicality and non-Gaussianity.
+  }
+  \adcvrowskip
+  \adcvrowtwo{\textbf{Teaching assistant}, University of Milan, Italy}{2015--2018}
+  \adcvrowmulti{
+  General physics, C++ programming and mathematics, see~\hyperref[sec:teaching]{Teaching} below.
+  }
+\end{adcvtabletwo}
+
+\section{Education}
+
+\begin{adcvtabletwo}
+  \adcvrowtwo{\textbf{Philosophiae Doctor (Ph.D.)}, Dept. of Physics, University of Milan, Italy}{2015--2018}
+  \ifextended
+    \adcvrowmulti{Dissertation: \href{http://hdl.handle.net/2434/602166}{Continuous measurements and nonclassicality as resources for quantum technologies}.}
+    \adcvrowmulti{Supervisor: \href{https://sites.unimi.it/mgaparis/}{Matteo~G.~ A.~Paris}.
+    External Referees: \href{https://www.ucl.ac.uk/physics-astronomy/people/dr-alessio-serafini}{Alessio Serafini} and \href{https://www.imsc.res.in/rajiah_simon}{Rajiah Simon}.}
+    \adcvrowmulti{International schools attended
+    \begin{itemize}
+    \item \textbf{Quantum Complex Systems Out of Equlibrium}, \href{https://qcse.lakecomoschool.org/}{Lake Como School of Advanced Studies}, \hfill \break Como, Italy, 29 Jul--3 Aug 2018
+    \item \textbf{Quantum Machine Learning}, \href{https://www.quantummachinelearning.org/qml-summer-school-2017.html}{28th Chris Engelbrecht Summer School}, \hfill \break Drakensberg mountains, South Africa, 23 Jan--1 Feb 2017
+    \item \textbf{Quantum Simulators}, \href{https://www.sif.it/corsi/scuola_fermi/mmxvi}{International School of Physics ``Enrico Fermi'' Course 198}, \hfill \break Varenna, Italy, 22--27 Jul 2016; admitted with scholarship
+    \end{itemize}
+    }
+  \fi
+  % \adcvrowskip
+  \adcvrowtwo{\textbf{Master of Science (M.Sc.)}, Dept. of Physics, University of Bologna, Italy}{2012--2015}
+  \ifextended
+    \adcvrowmulti{Final grade: \textit{Summa cum laude}.
+    Specialized curriculum in theoretical physics.
+    Dissertation: \href{https://amslaurea.unibo.it/id/eprint/8300110/}{Nonlinearity as a resource for nonclassicality}. Supervisors: \href{https://www.disim.univaq.it/main/home.php?users_username=alfonso}{Matteo~G.~A.~Paris} and \href{https://www.bo.imm.cnr.it/unit/users/degliesposti}{Cristian Degli Esposti Boschi}.}
+    \adcvrowskip
+    \adcvrowtwo{\textbf{Bachelor of Science (B.Sc.)}, Dept. of Physics, University of Bologna, Italy}{2009--2012}
+    \adcvrowmulti{Final grade: \textit{Summa cum laude}.
+    General curriculum in physics.
+    Dissertation: \href{http://www.bo.infn.it/~apesci/documents.html}{The role of entropy in Gibbs paradox} (in Italian). Supervisors: \href{http://www.bo.infn.it/~apesci}{Alessandro Pesci} and \href{https://www.unibo.it/sitoweb/elisa.ercolessi}{Elisa Ercolessi}.}
+    \adcvrowskip
+    \adcvrowtwo{\textbf{High school diploma}, Scientific Lyceum ``Georges Lemaître'', Rimini, Italy}{2004--2009}
+    \adcvrowmulti{State exam mark: \textit{100/100 cum laude}.}
+  \fi
+\end{adcvtabletwo}
+ % \ifextended
+ %  \vspace*{-.4cm}
+ %  \subsection*{International schools}
+ %  \begin{adcvtabletwo}
+ %  \adcvrowtwo{\textbf{Quantum Complex Systems Out of Equlibrium}, Como, Italy (29 Jul--3 Aug)}{2018}
+ %  \adcvrowmulti{\href{https://qcse.lakecomoschool.org/}{Lake Como School of Advanced Studies}}
+ %  \adcvrowskip
+ %  \adcvrowtwo{\textbf{Quantum Machine Learning}, Drakensberg mountains, South Africa (23 Jan--1 Feb)}{2017}
+ %  \adcvrowmulti{\href{https://www.quantummachinelearning.org/qml-summer-school-2017.html}{28th Chris Engelbrecht Summer School}}
+ %  \adcvrowskip
+ %  \adcvrowtwo{\textbf{Quantum Simulators}, Varenna, Italy (22--27 Jul)}{2016}
+ %  \adcvrowmulti{\href{https://www.sif.it/corsi/scuola_fermi/mmxvi}{International School of Physics ``Enrico Fermi'' Course 198}; admitted with scholarship}
+ %  \end{adcvtabletwo}
+ %  % \begin{adcvpresentations}
+ %  %   \adcvpresentation{Quantum Complex Systems Out of Equlibrium}{Lake Como School of Advanced Studies, Como, 29 Jul--3 Aug 2018}
+ %  %   \adcvpresentation{Quantum Machine Learning}{28th Chris Engelbrecht Summer School of the South African National Institute for Theoretical Physics, Drakensberg mountains, South Africa, 23 Jan--1 Feb 2017}
+ %  % \end{adcvpresentations}
+ %  \fi
+
+\ifextended
+  \section{Teaching}\label{sec:teaching}
+  \begin{adcvtabletwo}
+    \adcvrowtwo{\textbf{Teaching assistant}, General physics (in Italian)}{2015--2018}
+    \adcvrowmulti{Bachelor course in chemistry L-27, University of Milan (3 academic years)}
+    \adcvrowskip
+    \adcvrowtwo{\textbf{Teaching assistant}, C++ programming (in Italian)}{2016--2018}
+    \adcvrowmulti{Bachelor course in physics L-30, University of Milan (2 academic years)}
+    \adcvrowskip
+    \adcvrowtwo{\textbf{Teaching assistant}, Fundamentals of Mathematics (in Italian)}{2015--2016}
+    \adcvrowmulti{Bachelor course in chemistry L-27, University of Milan}
+    % \adcvrowskip
+    % \adcvrowtwo{\textbf{Private high-school tutoring} (maths, physics, programming)}{2015}
+    % \adcvrowmulti{Associazione Culturale Matemagia, Bologna}
+  \end{adcvtabletwo}
+
+  \section{Supervision}\label{sec:supervision}
+  \begin{adcvtabletwo}
+    \adcvrowtwo{\href{https://sites.unimi.it/aqm/people/}{\textbf{Giacomo Piscia}}, Master student in Physics, Università degli Studi di Milano, co-supervisor with \href{https://marcogenoni.weebly.com/}{M.~G.~Genoni} and \href{https://sites.unimi.it/mgaparis/}{M.~G.~A~Paris}. Project: Multi-parameter quantum metrology with time-continuous measurements}{2021}
+  \end{adcvtabletwo}
+\fi
+
+\section{Languages}
+
+\ifextended
+  \begin{adcvlanguages}
+    \adcvmothertongue{Italian}
+    \adcvlanguagesheader
+    \adcvlanguage{2}{English}{\adcvCTwo}{\adcvCTwo}{\adcvCOne}{\adcvCOne}{\adcvCOne}
+    \adcvlanguagesfooter
+    \adcvlanguagesfootnote{2}{IELTS - British Council, 12/07/2014 (Overall Score: 8.0/9.0)}
+  \end{adcvlanguages}
+\else
+  \textbf{Italian}: Native proficiency
+
+  \textbf{English}: Full professional proficiency
+\fi
+
+\section{Personal interests}
+
+Music, Rationality, Science, Sustainability, Food, Books
+
+\section{Publications}
+\vspace{-.3cm}
+\subsection*{Web of Science/\href{https://publons.com/researcher/ABA-1884-2020/}{Publons} metrics}
+\begin{tabular}{cccc}
+ publications    & total times cited & h-index & verified reviews \\
+\midrule
+17 & 186 & 8 & 41
+\end{tabular}
+\vspace{-.3cm}
+\ifextended
+  \begin{refsection}
+    \nocite{Albarelli2016a}
+    \nocite{Rossi2016}
+    \nocite{Albarelli2016}
+    \nocite{Albarelli2017}
+    \nocite{Albarelli2017a}
+    \nocite{Albarelli2018}
+    \nocite{Albarelli2018a}
+    \nocite{Albarelli2018c}
+    \nocite{Adnane2019}
+    \nocite{Adnane2019a}
+    \nocite{Albarelli2019a}
+    \nocite{Albarelli2019}
+    \nocite{Seveso2019}
+    \nocite{Albarelli2019c}
+    \nocite{Predko2020}
+    \nocite{Tsang2019}
+    \nocite{Rossi2020}
+    \nocite{Gianani2020}
+    \printbibliography[title={International peer-reviewed journals}, heading=subbibliography]
+  \end{refsection}
+\vspace{-.3cm}
+  \begin{refsection}
+    \nocite{Albarelli2019d}
+    \nocite{Albarelli2018b}
+    \printbibliography[title={Conference proceedings}, heading=subbibliography]
+  \end{refsection}
+\vspace{-.3cm}
+  \begin{refsection}
+    \nocite{Friel2020}
+    \printbibliography[title={Preprints}, heading=subbibliography]
+  \end{refsection}
+
+\else
+  \href{https://scholar.google.com/citations?user=s1bqnpoAAAAJ}{40+ publications} in peer-reviewed conference proceedings and journals.
+\fi
+
+\ifextended
+  \section{Presentations}
+  \vspace{-.3cm}
+  \subsection*{Contributed talks}
+  \begin{adcvpresentations}
+    \adcvpresentation{Recent advances in multiparameter quantum estimation}{4th AQM meeting, Milan, Italy, 20 Dec 2019}
+    \adcvpresentation{Evaluating the Holevo Cramér-Rao bound for multi-parameter quantum metrology}{IQIS 2019 (12th Italian Quantum Information Science Conference), Milan, Italy, 9--12 Sep 2019}
+    \adcvpresentation{Restoring Heisenberg scaling in noisy quantum metrology by monitoring the environment}{Quantum Roundabout 2018, Nottingham, United Kingdom, 11--13 Jul 2018}
+    \adcvpresentation{Ultimate limits for quantum magnetometry via time-continuous measurements}{YQIS 2017 (3rd International Conference for Young Quantum Information Scientists), Erlangen, Germany, 3--6 Oct 2017}
+  \end{adcvpresentations}
+  \vspace{-.3cm}
+  \subsection*{Posters}
+  \begin{adcvpresentations}
+    \adcvpresentation{Noisy Quantum Metrology Enhanced by Continuous Nondemolition Measurement}{CTP Quantum Information Days 2020(+1), Warsaw, 22--24 Feb 2021}
+    \adcvpresentation{Evaluating and upper bounding the Holevo Cramér-Rao bound}{QQQ Workshop (Quantum open systems, Quantum thermodynamics, Quantum probability), Milan, Italy, 18--21 Feb 2020)}
+    \adcvpresentation{The Holevo Cramér-Rao bound for multi-parameter quantum metrology}{CEWQO2019 (26th Central European Workshop on Quantum Optics), Paderborn, Germany, 3--7 June, 2019}
+    \adcvpresentation{The Holevo Cramér-Rao bound for multi-parameter quantum metrology}{Quantum Measurement: Fundamentals, Twists, and Applications, Trieste, Italy, 29 Apr--4 May 2019}
+    \adcvpresentation{Locally optimal control of continuous variable entanglement}{IQIS 2018 (11th Italian Quantum Information Science Conference), Catania, Italy, 17--20 Sep 2018}
+    \adcvpresentation{Restoring Heisenberg scaling in noisy quantum metrology by monitoring the environment}{PRACQSYS 2018 (Principles and Applications of Control in Quantum Systems), Paris, France, 2--6 Jul 2018)}
+    \adcvpresentation{Generation of coherence via Gaussian measurements}{IQIS 2017 (10th Italian Quantum Information Science Conference), Florence, Italy, 12-15 September 2017}
+    \adcvpresentation{Nonlinearity as a resource for quantum technologies}{636 WE-Heraeus-Seminar: Quantum-Limited Metrology and Sensing, Bad Honnef, Germany, 6--9 Feb 2017)}
+    \adcvpresentation{Nonlinearity as a resource for quantum technologies}{IQIS 2016 (9th Italian Quantum Information Science Conference), Rome, Italy, 20--23 Sep 2016}
+    \adcvpresentation{Nonlinearity as a resource for quantum technologies}{Quantum Roundabout 2016, Nottingham, United Kingdom, 6--8 Jul 2016}
+  \end{adcvpresentations}
+\fi
+
+\end{document}
